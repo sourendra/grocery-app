@@ -17,4 +17,5 @@
     <string name="cart">Cart</string>
     <string name="notification">Notifications</string>
     <string name="more">more</string>
+    <string name="tips_badge_removed">Badge Removed.</string>
 </resources>

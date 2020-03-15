@@ -12,6 +12,14 @@
         android:layout_height="match_parent"
         tools:context=".view.HomeActivity">
 
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"/>
+
         <!--<com.aurelhubert.ahbottomnavigation.AHBottomNavigation
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
@@ -19,8 +27,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />-->
+        <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorAccent"
+            app:itemIconTint="@color/selector_home_menu_icon"
+            app:itemTextColor="@color/selector_home_menu_icon"
+            app:menu="@menu/home_navigation_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <com.vincent.bottomnavigationbar.BottomNavigationBar
+        <!--<com.vincent.bottomnavigationbar.BottomNavigationBar
             android:id="@+id/bnb_default"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_56dp"
@@ -28,7 +48,7 @@
             android:background="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
