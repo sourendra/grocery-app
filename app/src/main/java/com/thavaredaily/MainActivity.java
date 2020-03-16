@@ -9,6 +9,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.thavaredaily.view.BaseFragment;
 import com.thavaredaily.view.HomeActivity;
+import com.thavaredaily.view.fragments.CartFragment;
+import com.thavaredaily.view.fragments.FavouriteFragment;
+import com.thavaredaily.view.fragments.HomeFragment;
+import com.thavaredaily.view.fragments.NotificationFragment;
+import com.thavaredaily.view.fragments.ProfileFragment;
 import com.thavaredaily.view.user.LoginFragment;
 
 public class MainActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener {

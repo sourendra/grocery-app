@@ -18,4 +18,7 @@
     <string name="notification">Notifications</string>
     <string name="more">more</string>
     <string name="tips_badge_removed">Badge Removed.</string>
+    <string name="change_password">Change Password</string>
+    <string name="logout">Logout</string>
+    <string name="delivery_address">Delivery Address</string>
 </resources>

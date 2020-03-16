@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         tools:context=".view.HomeActivity">
 
-        <androidx.viewpager.widget.ViewPager
+        <com.thavaredaily.util.NonScrollableViewpager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
