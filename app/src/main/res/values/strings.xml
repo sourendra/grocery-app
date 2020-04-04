@@ -21,4 +21,7 @@
     <string name="change_password">Change Password</string>
     <string name="logout">Logout</string>
     <string name="delivery_address">Delivery Address</string>
+    <string name="top_offers">Top Offers</string>
+    <string name="see_all"><u>See All</u></string>
+    <string name="categories">Categories</string>
 </resources>

@@ -4,14 +4,23 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.thavaredaily.R;
+import com.thavaredaily.databinding.FragmentHomeBinding;
 import com.thavaredaily.listeners.OnFragmentInteractionListener;
+import com.thavaredaily.util.CategoriesAdapter;
+import com.thavaredaily.util.ImageSliderViewPager;
+import com.thavaredaily.util.TopOffersAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +38,10 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    FragmentHomeBinding binding;
+
+    List<String> categoryList = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -65,7 +78,33 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        ImageSliderViewPager sliderViewPager = new ImageSliderViewPager(getContext(), new int[5]);
+        binding.vpOffers.setAdapter(sliderViewPager);
+        binding.dots.attachViewPager(binding.vpOffers);
+        setupTopOffers();
+        setupCategories();
+        return binding.getRoot();
+    }
+
+    private void setupTopOffers(){
+        TopOffersAdapter adapter = new TopOffersAdapter(getContext());
+        binding.rvOffers.setAdapter(adapter);
+    }
+
+    private void setupCategories(){
+        if (categoryList != null && categoryList.size() == 0) {
+            categoryList.add("Fruits & Vegetables");
+            categoryList.add("Beverages");
+            categoryList.add("Branded Food");
+            categoryList.add("Dairy, Bakery & Eggs");
+            categoryList.add("Foodgrain, Oil & Masala");
+            categoryList.add("Frozen Veg");
+            categoryList.add("Home care & Fashion");
+        }
+        CategoriesAdapter adapter = new CategoriesAdapter(getContext(), categoryList);
+        binding.rvCategories.setAdapter(adapter);
+//        binding.rvCategories.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
     }
 
     @Override

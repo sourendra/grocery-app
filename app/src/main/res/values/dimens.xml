@@ -24,6 +24,7 @@
     <dimen name="common_120dp">120dp</dimen>
     <dimen name="common_144dp">144dp</dimen>
     <dimen name="common_160dp">160dp</dimen>
+    <dimen name="common_200dp">200dp</dimen>
     <dimen name="common_240dp">240dp</dimen>
     <dimen name="common_320dp">320dp</dimen>
 
@@ -31,6 +32,7 @@
     <dimen name="text_8sp">8sp</dimen>
     <dimen name="text_10sp">10sp</dimen>
     <dimen name="text_12sp">12sp</dimen>
+    <dimen name="text_14sp">14sp</dimen>
     <dimen name="text_16sp">16sp</dimen>
     <dimen name="text_18sp">18sp</dimen>
     <dimen name="text_20sp">20sp</dimen>
