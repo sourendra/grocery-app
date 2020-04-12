@@ -1,6 +1,7 @@
 package com.thavaredaily.view.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import com.thavaredaily.listeners.OnFragmentInteractionListener;
 import com.thavaredaily.util.CategoriesAdapter;
 import com.thavaredaily.util.ImageSliderViewPager;
 import com.thavaredaily.util.TopOffersAdapter;
+import com.thavaredaily.view.ItemActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ import java.util.List;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements CategoriesAdapter.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -87,12 +89,12 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void setupTopOffers(){
+    private void setupTopOffers() {
         TopOffersAdapter adapter = new TopOffersAdapter(getContext());
         binding.rvOffers.setAdapter(adapter);
     }
 
-    private void setupCategories(){
+    private void setupCategories() {
         if (categoryList != null && categoryList.size() == 0) {
             categoryList.add("Fruits & Vegetables");
             categoryList.add("Beverages");
@@ -102,7 +104,7 @@ public class HomeFragment extends Fragment {
             categoryList.add("Frozen Veg");
             categoryList.add("Home care & Fashion");
         }
-        CategoriesAdapter adapter = new CategoriesAdapter(getContext(), categoryList);
+        CategoriesAdapter adapter = new CategoriesAdapter(getContext(), categoryList, this);
         binding.rvCategories.setAdapter(adapter);
 //        binding.rvCategories.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
     }
@@ -122,5 +124,12 @@ public class HomeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(getContext(), ItemActivity.class);
+        if (getContext() != null)
+            getContext().startActivity(intent);
     }
 }

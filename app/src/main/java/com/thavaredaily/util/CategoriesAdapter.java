@@ -17,10 +17,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
 
     Context context;
     List<String> itemList;
+    OnItemClickListener onItemClickListener;
 
-    public CategoriesAdapter(Context context, List<String> itemList) {
+    public CategoriesAdapter(Context context, List<String> itemList, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.itemList = itemList;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -36,6 +38,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.bind(itemList.get(position));
+        holder.binding.getRoot().setOnClickListener(v -> {
+            onItemClickListener.onItemClick(position);
+        });
     }
 
     @Override
@@ -57,5 +62,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             binding.tvCategoryName.setText(category);
             binding.executePendingBindings();
         }
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
     }
 }
