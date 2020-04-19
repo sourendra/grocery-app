@@ -26,4 +26,5 @@
     <string name="categories">Categories</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="go_to_cart">Go to Cart</string>
+    <string name="rs">\u20b9 %s</string>
 </resources>

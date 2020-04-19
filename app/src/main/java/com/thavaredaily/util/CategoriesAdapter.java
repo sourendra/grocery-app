@@ -7,8 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import com.bumptech.glide.Glide;
 import com.thavaredaily.BR;
+import com.thavaredaily.R;
+import com.thavaredaily.data.CategoryResponse;
 import com.thavaredaily.databinding.ItemCategoriesBinding;
 
 import java.util.List;
@@ -16,10 +20,10 @@ import java.util.List;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder> {
 
     Context context;
-    List<String> itemList;
+    List<CategoryResponse> itemList;
     OnItemClickListener onItemClickListener;
 
-    public CategoriesAdapter(Context context, List<String> itemList, OnItemClickListener onItemClickListener) {
+    public CategoriesAdapter(Context context, List<CategoryResponse> itemList, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.itemList = itemList;
         this.onItemClickListener = onItemClickListener;
@@ -39,7 +43,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.bind(itemList.get(position));
         holder.binding.getRoot().setOnClickListener(v -> {
-            onItemClickListener.onItemClick(position);
+            onItemClickListener.onItemClick(itemList.get(position));
         });
     }
 
@@ -57,14 +61,16 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             this.binding = categoriesBinding;
         }
 
-        public void bind(String category) {
+        public void bind(CategoryResponse category) {
 //            binding.setVariable(com.thavaredaily.BR.obj, obj);
-            binding.tvCategoryName.setText(category);
+            binding.tvCategoryName.setText(category.getName());
+            Glide.with(context).load(category.getImageLink()).placeholder(CommonUtils.getCircularProgressDrawable(context))
+                    .error(context.getResources().getDrawable(R.drawable.ic_groceries_default)).into(binding.civCategoryPic);
             binding.executePendingBindings();
         }
     }
 
     public interface OnItemClickListener{
-        void onItemClick(int position);
+        void onItemClick(CategoryResponse categoryResponse);
     }
 }

@@ -7,19 +7,21 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.thavaredaily.R;
+import com.thavaredaily.data.CategoryResponse;
 import com.thavaredaily.databinding.FragmentHomeBinding;
 import com.thavaredaily.listeners.OnFragmentInteractionListener;
 import com.thavaredaily.util.CategoriesAdapter;
 import com.thavaredaily.util.ImageSliderViewPager;
 import com.thavaredaily.util.TopOffersAdapter;
 import com.thavaredaily.view.ItemActivity;
+import com.thavaredaily.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,7 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnItemCl
     private OnFragmentInteractionListener mListener;
 
     FragmentHomeBinding binding;
+    HomeViewModel homeViewModel;
 
     List<String> categoryList = new ArrayList<>();
 
@@ -74,6 +77,7 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnItemCl
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        homeViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
     }
 
     @Override
@@ -81,6 +85,7 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnItemCl
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        binding.setViewModel(homeViewModel);
         ImageSliderViewPager sliderViewPager = new ImageSliderViewPager(getContext(), new int[5]);
         binding.vpOffers.setAdapter(sliderViewPager);
         binding.dots.attachViewPager(binding.vpOffers);
@@ -95,17 +100,11 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnItemCl
     }
 
     private void setupCategories() {
-        if (categoryList != null && categoryList.size() == 0) {
-            categoryList.add("Fruits & Vegetables");
-            categoryList.add("Beverages");
-            categoryList.add("Branded Food");
-            categoryList.add("Dairy, Bakery & Eggs");
-            categoryList.add("Foodgrain, Oil & Masala");
-            categoryList.add("Frozen Veg");
-            categoryList.add("Home care & Fashion");
-        }
-        CategoriesAdapter adapter = new CategoriesAdapter(getContext(), categoryList, this);
-        binding.rvCategories.setAdapter(adapter);
+        homeViewModel.getCategoryResponse().observe(this, categoryResponses -> {
+            CategoriesAdapter adapter = new CategoriesAdapter(getContext(), categoryResponses, this);
+            binding.rvCategories.setAdapter(adapter);
+        });
+
 //        binding.rvCategories.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
     }
 
@@ -127,8 +126,9 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnItemCl
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(CategoryResponse categoryResponse) {
         Intent intent = new Intent(getContext(), ItemActivity.class);
+        intent.putExtra("categoryId", categoryResponse.getId());
         if (getContext() != null)
             getContext().startActivity(intent);
     }

@@ -1,14 +1,16 @@
 package com.thavaredaily.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.thavaredaily.data.Item;
+import com.bumptech.glide.Glide;
+import com.thavaredaily.R;
+import com.thavaredaily.data.ValueItem;
 import com.thavaredaily.databinding.ItemItemListBinding;
 
 import java.util.List;
@@ -16,10 +18,10 @@ import java.util.List;
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyViewHolder> {
 
     Context context;
-    List<Item> itemList;
+    List<ValueItem> itemList;
     OnItemCLickListener onItemCLickListener;
 
-    public ItemListAdapter(Context context, List<Item> itemList, OnItemCLickListener onItemCLickListener) {
+    public ItemListAdapter(Context context, List<ValueItem> itemList, OnItemCLickListener onItemCLickListener) {
         this.context = context;
         this.itemList = itemList;
         this.onItemCLickListener = onItemCLickListener;
@@ -57,11 +59,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.MyView
             this.binding = binding;
         }
 
-        public void bind(Item item) {
-            binding.tvItemTitle.setText(item.getItemName());
-            binding.tvItemSubTitle.setText(item.getItemSubName());
-            binding.tvActualPrice.setText(item.getItemActualPrice());
-            binding.tvCurrentPrice.setText(item.getItemCurrentPrice());
+        @SuppressLint("StringFormatMatches")
+        public void bind(ValueItem item) {
+            binding.tvItemTitle.setText(item.getName());
+//            binding.tvItemSubTitle.setText(item.getItemSubName());
+//            binding.tvActualPrice.setText(context.getResources().getString(R.string.rs, item.getActualPrice()));
+//            binding.tvCurrentPrice.setText(context.getResources().getString(R.string.rs, item.getDiscountPrice()));
+            Glide.with(context).load(item.getImageLink()).placeholder(CommonUtils.getCircularProgressDrawable(context))
+                    .error(context.getResources().getDrawable(R.drawable.ic_groceries_default)).into(binding.ivItem);
         }
     }
 

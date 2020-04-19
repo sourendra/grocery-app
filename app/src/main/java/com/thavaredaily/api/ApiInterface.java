@@ -8,6 +8,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Path;
 
 public interface ApiInterface {
@@ -15,6 +16,7 @@ public interface ApiInterface {
     @GET("item/category")
     Call<List<CategoryResponse>> getCategoryList();
 
+    @Headers("Content-Type: application/json")
     @GET("item/byCategory/{categoryId}")
     Call<ItemsForCategoryResponse> getItemListForCategory(@Path("categoryId") String categoryId);
 
